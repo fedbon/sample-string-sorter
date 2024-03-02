@@ -1,2 +1,2 @@
 # sample-string-sorter
-Task for Uno-Soft
+Тестовое задание для Uno-Soft
