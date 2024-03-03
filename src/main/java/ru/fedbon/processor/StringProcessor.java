@@ -44,7 +44,7 @@ public class StringProcessor implements Processor {
                 addToNewGroup(line, groupedLines, lineParts);
             }
         } else {
-            addToExistingGroup(line, groupNumber, groupedLines, lineParts);
+            addToExistingGroup(line, groupedLines, lineParts, groupNumber);
         }
     }
 
@@ -64,13 +64,13 @@ public class StringProcessor implements Processor {
 
     private void addToNewGroup(String line, List<Set<String>> groupedLines, List<Map<String, Integer>> lineParts) {
         groupedLines.add(new HashSet<>(List.of(line)));
-        updateLineParts(getColumnValues(line), groupedLines.size() - 1, lineParts);
+        updateLineParts(getColumnValues(line), lineParts, groupedLines.size() - 1);
     }
 
-    private void addToExistingGroup(String line, int groupNumber, List<Set<String>> groupedLines,
-                                    List<Map<String, Integer>> lineParts) {
+    private void addToExistingGroup(String line, List<Set<String>> groupedLines,
+                                    List<Map<String, Integer>> lineParts, int groupNumber) {
         groupedLines.get(groupNumber).add(line);
-        updateLineParts(getColumnValues(line), groupNumber, lineParts);
+        updateLineParts(getColumnValues(line), lineParts, groupNumber);
     }
 
     private String[] getColumnValues(String line) {
@@ -82,17 +82,17 @@ public class StringProcessor implements Processor {
         return line.replace("\"", "").split(";");
     }
 
-    private void updateLineParts(String[] newValues, int groupNumber, List<Map<String, Integer>> lineParts) {
+    private void updateLineParts(String[] newValues, List<Map<String, Integer>> lineParts, int groupNumber) {
         for (int i = 0; i < newValues.length; i++) {
             if (!newValues[i].isEmpty()) {
-                Map<String, Integer> partMap;
+                Map<String, Integer> linePartsMap;
                 if (i < lineParts.size()) {
-                    partMap = lineParts.get(i);
+                    linePartsMap = lineParts.get(i);
                 } else {
-                    partMap = new HashMap<>();
-                    lineParts.add(partMap);
+                    linePartsMap = new HashMap<>();
+                    lineParts.add(linePartsMap);
                 }
-                partMap.put(newValues[i], groupNumber);
+                linePartsMap.put(newValues[i], groupNumber);
             }
         }
     }
