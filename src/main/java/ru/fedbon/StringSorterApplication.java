@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import ru.fedbon.api.InputFileReaderImpl;
 import ru.fedbon.api.OutputFileWriterImpl;
 import ru.fedbon.processor.StringProcessor;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
