@@ -17,7 +17,7 @@ import java.util.Set;
 @SpringBootApplication
 public class StringSorterApplication {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         if (args.length != 2) {
             log.info("Use command in target folder: " +
                     "java -jar sample-string-sorter-1.0.jar input-data.txt <output-file-name>");
