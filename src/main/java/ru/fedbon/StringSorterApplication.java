@@ -13,14 +13,14 @@ import java.util.Map;
 import java.util.Set;
 
 
-
 @Slf4j
 @SpringBootApplication
 public class StringSorterApplication {
 
     public static void main(String[] args) throws IOException {
         if (args.length != 2) {
-            log.info("Use: java -jar sample-string-sorter-1.0.jar input-data.txt <output-file-name>");
+            log.info("Use command in target folder: " +
+                    "java -jar sample-string-sorter-1.0.jar input-data.txt <output-file-name>");
             System.exit(1);
         }
         String inputFilePath = args[0];

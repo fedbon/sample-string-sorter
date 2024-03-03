@@ -3,6 +3,8 @@ package ru.fedbon.processor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import ru.fedbon.exception.AppException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
@@ -18,14 +20,20 @@ import java.util.Set;
 @Component
 public class StringProcessor implements Processor {
 
-
     @Override
     public void process(BufferedReader reader, List<Set<String>> groupedLines,
-                        List<Map<String, Integer>> lineParts) throws IOException {
-        String line = reader.readLine();
-        while (line != null) {
-            processLine(line, groupedLines, lineParts);
-            line = reader.readLine();
+                        List<Map<String, Integer>> lineParts) {
+        try {
+            log.info("Starting to process the input file...");
+            String line = reader.readLine();
+            while (line != null) {
+                processLine(line, groupedLines, lineParts);
+                line = reader.readLine();
+            }
+            log.info("Finished processing the input file.");
+        } catch (IOException e) {
+            log.error("Error occurred while processing input file", e);
+            throw new AppException("Error occurred while processing input file");
         }
     }
 

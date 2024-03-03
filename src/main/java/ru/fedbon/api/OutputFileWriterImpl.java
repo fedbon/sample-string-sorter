@@ -25,6 +25,7 @@ public class OutputFileWriterImpl implements OutputFileWriter {
     public void writeResultToFile(String outputFilePath, List<Set<String>> groupedLines) {
         List<Set<String>> sortedGroups = sortGroupsBySize(groupedLines);
         writeGroupsToFile(outputFilePath, sortedGroups);
+        log.info("Result has been written to file: {}", outputFilePath);
     }
 
     @Override
