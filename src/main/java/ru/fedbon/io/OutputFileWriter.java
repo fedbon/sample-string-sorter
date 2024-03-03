@@ -1,4 +1,4 @@
-package ru.fedbon.api;
+package ru.fedbon.io;
 
 import java.util.List;
 import java.util.Set;

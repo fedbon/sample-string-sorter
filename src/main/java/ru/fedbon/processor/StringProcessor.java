@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 
@@ -38,35 +37,40 @@ public class StringProcessor implements Processor {
 
     private void processLine(String line, List<Set<String>> groupedLines, List<Map<String, Integer>> lineParts) {
         String[] columns = getColumnValues(line);
-        Integer groupNumber = null;
-        for (int i = 0; i < Math.min(lineParts.size(), columns.length); i++) {
-            Integer lineGroupNumber = lineParts.get(i).get(columns[i]);
-            if (lineGroupNumber != null) {
-                if (groupNumber == null) {
-                    groupNumber = lineGroupNumber;
-                } else if (!Objects.equals(groupNumber, lineGroupNumber)) {
-                    mergeGroups(groupedLines,lineParts, groupNumber, lineGroupNumber);
-                }
-            }
-        }
+        Integer groupNumber = findGroupNumber(lineParts, columns);
+
         if (groupNumber == null) {
-            if (Arrays.stream(columns).anyMatch(s -> !s.isEmpty())) {
-                groupedLines.add(new HashSet<>(List.of(line)));
-                updateLineParts(columns, groupedLines.size() - 1, lineParts);
+            if (hasNonEmptyColumns(columns)) {
+                addToNewGroup(line, groupedLines, lineParts);
             }
         } else {
-            groupedLines.get(groupNumber).add(line);
-            updateLineParts(columns, groupNumber, lineParts);
+            addToExistingGroup(line, groupNumber, groupedLines, lineParts);
         }
     }
 
-    private void mergeGroups(List<Set<String>> groupedLines,
-                             List<Map<String, Integer>> lineParts, int groupNumber1, int groupNumber2) {
-        for (String line : new HashSet<>(groupedLines.get(groupNumber2))) {
-            groupedLines.get(groupNumber1).add(line);
-            updateLineParts(getColumnValues(line), groupNumber1, lineParts);
+    private Integer findGroupNumber(List<Map<String, Integer>> lineParts, String[] columns) {
+        for (int i = 0; i < Math.min(lineParts.size(), columns.length); i++) {
+            Integer lineGroupNumber = lineParts.get(i).get(columns[i]);
+            if (lineGroupNumber != null) {
+                return lineGroupNumber;
+            }
         }
-        groupedLines.set(groupNumber2, new HashSet<>());
+        return null;
+    }
+
+    private boolean hasNonEmptyColumns(String[] columns) {
+        return Arrays.stream(columns).anyMatch(s -> !s.isEmpty());
+    }
+
+    private void addToNewGroup(String line, List<Set<String>> groupedLines, List<Map<String, Integer>> lineParts) {
+        groupedLines.add(new HashSet<>(List.of(line)));
+        updateLineParts(getColumnValues(line), groupedLines.size() - 1, lineParts);
+    }
+
+    private void addToExistingGroup(String line, int groupNumber, List<Set<String>> groupedLines,
+                                    List<Map<String, Integer>> lineParts) {
+        groupedLines.get(groupNumber).add(line);
+        updateLineParts(getColumnValues(line), groupNumber, lineParts);
     }
 
     private String[] getColumnValues(String line) {

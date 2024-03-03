@@ -3,8 +3,8 @@ package ru.fedbon;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import ru.fedbon.api.InputFileReaderImpl;
-import ru.fedbon.api.OutputFileWriterImpl;
+import ru.fedbon.io.InputFileReaderImpl;
+import ru.fedbon.io.OutputFileWriterImpl;
 import ru.fedbon.processor.StringProcessor;
 import java.util.ArrayList;
 import java.util.List;

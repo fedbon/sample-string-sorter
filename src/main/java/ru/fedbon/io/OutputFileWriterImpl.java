@@ -1,4 +1,4 @@
-package ru.fedbon.api;
+package ru.fedbon.io;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

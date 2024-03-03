@@ -1,4 +1,4 @@
-package ru.fedbon.api;
+package ru.fedbon.io;
 
 import org.springframework.stereotype.Component;
 import ru.fedbon.exception.AppException;
