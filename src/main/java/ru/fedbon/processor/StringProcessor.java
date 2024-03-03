@@ -32,7 +32,6 @@ public class StringProcessor implements Processor {
             }
             log.info("Finished processing the input file.");
         } catch (IOException e) {
-            log.error("Error occurred while processing input file", e);
             throw new AppException("Error occurred while processing input file");
         }
     }
