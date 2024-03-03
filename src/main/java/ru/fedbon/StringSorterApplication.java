@@ -24,8 +24,6 @@ public class StringSorterApplication {
         }
         String inputFilePath = args[0];
         String outputFilePath = args[1];
-//        var inputFilePath = "input-data.txt";
-//        var outputFilePath = "src/main/resources/output-data.txt";
         List<Set<String>> groupedLines = new ArrayList<>();
         List<Map<String, Integer>> lineParts = new ArrayList<>();
 
