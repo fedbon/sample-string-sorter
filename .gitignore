@@ -34,3 +34,7 @@ out
 *.ipr
 *.idea
 
+# Ignore specific files
+input-data-big.csv
+output-data-big.txt
+output-data-big.csv

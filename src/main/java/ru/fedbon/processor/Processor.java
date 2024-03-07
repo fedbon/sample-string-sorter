@@ -8,6 +8,5 @@ import java.util.Set;
 
 public interface Processor {
 
-    void process(BufferedReader reader, List<Set<String>> groupedLines,
-                 List<Map<String, Integer>> lineParts) throws IOException;
+    void process(BufferedReader reader, List<Set<String>> groupedLines, List<Map<String, Integer>> lineParts);
 }
